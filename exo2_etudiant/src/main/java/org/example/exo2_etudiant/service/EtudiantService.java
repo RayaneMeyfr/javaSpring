@@ -39,8 +39,14 @@ public class EtudiantService {
     }
 
     public void ajouterEtudiant(Etudiant etudiant) {
-        etudiant.setId(UUID.randomUUID());
+        if (etudiant.getId() == null || !etudiants.containsKey(etudiant.getId())) {
+            etudiant.setId(UUID.randomUUID());
+        }
         etudiants.put(etudiant.getId(), etudiant);
+    }
+
+    public void supprimerEtudiant(UUID id) {
+        etudiants.remove(id);
     }
 
     public List<Etudiant> getAllEtudiants() {

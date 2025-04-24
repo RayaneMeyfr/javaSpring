@@ -23,8 +23,8 @@ public class EtudiantController {
         return etudiantService.getAllEtudiants();
     }
 
-    @RequestMapping("/detail/{EtudiantId}")
-    public String detail(@PathVariable("EtudiantId") UUID etudiantId, Model model) {
+    @RequestMapping("/detail/{etudiantId}")
+    public String detail(@PathVariable("etudiantId") UUID etudiantId, Model model) {
         Etudiant etudiant = etudiantService.getEtudiantById(etudiantId);
         model.addAttribute("etudiant", etudiant);
         return "details";
@@ -50,11 +50,23 @@ public class EtudiantController {
         return "inscription";
     }
 
+    @RequestMapping("/update/{etudiantId}")
+    public String update(@PathVariable("etudiantId") UUID id, Model model) {
+        model.addAttribute("etudiant", etudiantService.getEtudiantById(id));
+        return "inscription"; // pour cohérence avec le formulaire d'inscription
+    }
+
+
     @PostMapping("/add")
     public String add(@ModelAttribute("etudiant") Etudiant etudiant) {
-        System.out.println(etudiant);
         etudiantService.ajouterEtudiant(etudiant);
         return "redirect:/listeEtudiants    ";
+    }
+
+    @RequestMapping("/delete/{etudiantId}")
+    public String delete(@PathVariable("etudiantId") UUID id) {
+        etudiantService.supprimerEtudiant(id);
+        return "redirect:/listeEtudiants";
     }
 
     @RequestMapping("/")

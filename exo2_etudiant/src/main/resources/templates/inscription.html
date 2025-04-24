@@ -7,6 +7,7 @@
 <body>
 <h1>Inscription</h1>
     <form th:action="@{/add}" th:object="${etudiant}" method="post">
+        <input th:field="*{id}" type="hidden">
         <div>
             <label for="name">name</label>
             <input type="text" id="name" th:field="*{name}">
