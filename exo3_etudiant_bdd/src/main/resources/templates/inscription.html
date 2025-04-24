@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Inscription</title>
+</head>
+<body>
+<h1>Inscription</h1>
+<form th:action="@{/add}" th:object="${etudiant}" method="post">
+    <input th:field="*{id}" type="hidden">
+    <div>
+        <label for="name">name</label>
+        <input type="text" id="name" th:field="*{name}">
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+    </div>
+    <div>
+        <label for="classe">classe</label>
+        <input type="text" id="classe" th:field="*{classe}">
+        <span th:if="${#fields.hasErrors('classe')}" th:errors="*{classe}"></span>
+
+    </div>
+    <div>
+        <label for="age">age</label>
+        <input type="number" id="age" th:field="*{age}">
+        <span th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></span>
+
+    </div>
+    <button>Valider</button>
+</form>
+
+<p><a href="/">home</a></p>
+</body>
+</html>

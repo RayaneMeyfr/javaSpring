@@ -1,9 +1,11 @@
-package org.example.exo2_etudiant.controller;
+package org.example.exo3_etudiant_bdd.controller;
 
-import org.example.exo2_etudiant.model.Etudiant;
-import org.example.exo2_etudiant.service.EtudiantService;
+import jakarta.validation.Valid;
+import org.example.exo3_etudiant_bdd.model.Etudiant;
+import org.example.exo3_etudiant_bdd.service.EtudiantService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,12 +22,12 @@ public class EtudiantController {
     @RequestMapping("/Etudiants")
     @ResponseBody
     public List<Etudiant> getAllEtudiants() {
-        return etudiantService.getAllEtudiants();
+        return etudiantService.findAll();
     }
 
     @RequestMapping("/detail/{etudiantId}")
-    public String detail(@PathVariable("etudiantId") UUID etudiantId, Model model) {
-        Etudiant etudiant = etudiantService.getEtudiantById(etudiantId);
+    public String detail(@PathVariable("etudiantId") int etudiantId, Model model) {
+        Etudiant etudiant = etudiantService.findById(etudiantId);
         model.addAttribute("etudiant", etudiant);
         return "details";
     }
@@ -35,9 +37,9 @@ public class EtudiantController {
         List<Etudiant> etudiants;
 
         if (name != null && !name.isEmpty()) {
-            etudiants = etudiantService.getEtudiantByName(name);
+            etudiants = etudiantService.findByName(name);
         } else {
-            etudiants = etudiantService.getAllEtudiants();
+            etudiants = etudiantService.findAll();
         }
 
         model.addAttribute("etudiants", etudiants);
@@ -51,21 +53,25 @@ public class EtudiantController {
     }
 
     @RequestMapping("/update/{etudiantId}")
-    public String update(@PathVariable("etudiantId") UUID id, Model model) {
-        model.addAttribute("etudiant", etudiantService.getEtudiantById(id));
-        return "inscription";
+    public String update(@PathVariable("etudiantId") int id, Model model) {
+        model.addAttribute("etudiant", etudiantService.findById(id));
+        return "inscription"; // pour cohérence avec le formulaire d'inscription
     }
 
 
     @PostMapping("/add")
-    public String add(@ModelAttribute("etudiant") Etudiant etudiant) {
-        etudiantService.ajouterEtudiant(etudiant);
+    public String add(@Valid @ModelAttribute("etudiant") Etudiant etudiant, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return "inscription";
+        }else {
+            etudiantService.save(etudiant);
+        }
         return "redirect:/listeEtudiants    ";
     }
 
     @RequestMapping("/delete/{etudiantId}")
-    public String delete(@PathVariable("etudiantId") UUID id) {
-        etudiantService.supprimerEtudiant(id);
+    public String delete(@PathVariable("etudiantId") int id) {
+        etudiantService.delete(etudiantService.findById(id));
         return "redirect:/listeEtudiants";
     }
 
