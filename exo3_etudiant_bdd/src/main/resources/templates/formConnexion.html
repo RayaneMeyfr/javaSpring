@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Connexion</title>
+</head>
+<body>
+<h1>Connexion</h1>
+<form th:action="@{/login}" method="post">
+  <input type="text" name="email" placeholder="email">
+  <input type="text" name="mdp" placeholder="mdp">
+  <button>Valider</button>
+</form>
+
+</body>
+</html>

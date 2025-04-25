@@ -16,7 +16,9 @@
     <li th:each="etudiant : ${etudiants}">
         <a th:href="@{'/detail/' + ${etudiant.getId()}}"  ><span th:text="${etudiant.getName()}"/></a>
         <a th:href="@{'/update/' + ${etudiant.getId()}}"  >Update</a>
+        <a th:href="@{'/addImage/' + ${etudiant.getId()}}"  >Add Image</a>
         <a th:href="@{'/delete/' + ${etudiant.getId()}}"  >Delete</a>
+
     </li>
 </ul>
 

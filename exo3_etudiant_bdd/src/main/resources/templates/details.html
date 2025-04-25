@@ -9,6 +9,7 @@
 <p>Nom : <span th:text="${etudiant.getName()}"/></p>
 <p>Classe : <span th:text="${etudiant.getClasse()}"/></p>
 <p>Age : <span th:text="${etudiant.getAge()}"/></p>
+<p><img th:src="@{${etudiant.getImage()}}" /></p>
 <p><a href="/">home</a></p>
 </body>
 </html>

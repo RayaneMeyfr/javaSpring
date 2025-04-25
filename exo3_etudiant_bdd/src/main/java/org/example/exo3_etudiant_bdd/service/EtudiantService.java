@@ -11,7 +11,7 @@ public class EtudiantService {
     private final EtudiantRepository etudiantRepository;
 
     public EtudiantService(EtudiantRepository etudiantRepository) {
-        this.etudiantRepository = etudiantRepository;
+                this.etudiantRepository = etudiantRepository;
     }
 
     public List<Etudiant> findAll() {
