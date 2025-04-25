@@ -131,7 +131,7 @@ public class EtudiantController {
         Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
 
         Etudiant etudiant = etudiantService.findById(id);
-        etudiant.setImage(destinationFile.toString());
+        etudiant.setImage(image.getOriginalFilename());
         etudiantService.save(etudiant);
         return "redirect:/listeEtudiants";
     }
